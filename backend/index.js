@@ -8,9 +8,11 @@ const app = express()
 app.use(cors());
 
 app.get("/", (req, res) => {
+
     const data = [];
     const filePath = "player_stats.csv";
 
+    // input stream
     const readL = readline.createInterface({
         input: fs.createReadStream(filePath),
         output: process.stdout,
@@ -20,6 +22,7 @@ app.get("/", (req, res) => {
     var lineCt = 0;
 
     readL.on("line", (line) => {
+        // Only load 50 data values to avoid overcrowding
         if(lineCt != 0 && lineCt < 50){
             const values = line.split(",");
         
@@ -30,13 +33,17 @@ app.get("/", (req, res) => {
         lineCt++;
     });
 
+    // On file close
     readL.on("close", () => {
+        // Send data
         res.json(data);
     });
 
     readL.on("error", (error) => {
-        console.error("Error reading CSV file:", error);
+
+        console.error("Error while reading data file: ", error);
         res.status(500).json({ error: "Internal Server Error" });
+        
     });
 });
 
