@@ -23,8 +23,8 @@ app.get("/", (req, res) => {
         if(lineCt != 0 || lineCt>200){
             const values = line.split(",");
         
-            const kd = parseFloat(values[5]);
-            const rating = parseFloat(values[6]);
+            const kd = parseFloat(values[7]);
+            const rating = parseFloat(values[8]);
             data.push({kd, rating});
         }
         lineCt++;
