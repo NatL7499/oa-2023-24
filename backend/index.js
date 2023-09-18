@@ -22,7 +22,6 @@ app.get("/", (req, res) => {
     readL.on("line", (line) => {
         if(lineCt != 0 && lineCt < 50){
             const values = line.split(",");
-            console.log(line);
         
             const kd = parseFloat(values[6]);
             const rating = parseFloat(values[7]);
