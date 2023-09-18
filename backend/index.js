@@ -17,14 +17,14 @@ app.get("/", (req, res) => {
         terminal: false
     });
 
-    let lineCt = 0;
+    var lineCt = 0;
 
     readL.on("line", (line) => {
-        if(lineCt != 0 || lineCt>200){
+        if(lineCt != 0 && line !== 'undefined'){
             const values = line.split(",");
         
-            const kd = parseFloat(values[7]);
-            const rating = parseFloat(values[8]);
+            const kd = parseFloat(values[6]);
+            const rating = parseFloat(values[7]);
             data.push({kd, rating});
         }
         lineCt++;
